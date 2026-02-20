@@ -16,6 +16,14 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    reportCompressedSize: false, // This skips the "computing gzip size" step
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+        },
+      },
+    },
   },
 }));
